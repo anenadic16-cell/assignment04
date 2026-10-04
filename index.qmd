@@ -1,5 +1,18 @@
 ---
-title: "Untitled"
-format: html
-editor: visual
+title: "AI Training Gaps in European Schools"
+author: "Ana Nenadic"
+format: 
+  html:
+    embed-resources: true
 ---
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+
+library(tidyverse)
+```
+
+My data is from the OECD [Teaching and Learning International Survey (TALIS) 2024](https://www.oecd.org/en/publications/results-from-talis-2024_90df6235-en/full-report/list-of-tables-available-online_d5b208db.html). Specifically, training gap data is from table 4.30; barriers to AI use is from table 1.63 for middle school teachers across a selection of 28 European countries, further stratified by EU member, EU candidate, and non-member or candidate. 
+
