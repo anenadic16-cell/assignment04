@@ -16,3 +16,37 @@ library(tidyverse)
 
 My data is from the OECD [Teaching and Learning International Survey (TALIS) 2024](https://www.oecd.org/en/publications/results-from-talis-2024_90df6235-en/full-report/list-of-tables-available-online_d5b208db.html). Specifically, training gap data is from table 4.30; barriers to AI use is from table 1.63 for middle school teachers across a selection of 28 European countries, further stratified by EU member, EU candidate, and non-member or candidate. 
 
+```{r}
+#| label: graph1
+#| message: false
+#| warning: false
+
+gap <- read_csv("data/training_gap.csv")
+
+#My EU Color Palette
+darkblue <- "#3D426B" #for EU member states
+lightblue <- "#779ECB" #for Candidate states
+grey <- "#DBD9DA"# for non-EU and non-Candidate states
+black <- "#000000" #. for general text labels
+
+ggplot(gap, aes (x = reorder(country, training_gap_pct),
+                 y = training_gap_pct, fill = group)) +
+      geom_col(width=0.8, color = "white", linewidth = 0.3) +
+      geom_text (aes(label = paste0(training_gap_pct, "%")),
+                 hjust = -0.15, size = 2.6, color = black) +
+      coord_flip() +
+      scale_fill_manual(values = c("EU member" = darkblue,
+                                   "Candidate" = lightblue,
+                                   "Other Europe" = grey)) +
+      scale_y_continuous(limits = c(0,32)) +
+      labs(title = "AI Training Gap in European Schools",
+           subtitle = "Middle-School Teachers Reporting Unmet Need For AI Training in 2024",
+           x = NULL, y = "% of Teachers",
+           fill = "Country group",
+           caption = "Source: OECD, Teaching and Learning International Survey 2024") +
+      
+      theme_minimal()
+```
+
+Some Southern European countries have the biggest gaps between need and presence of training: Malta (28.3%), Cyprus (26.9%), and Spain (24.2%). Estonia (9.1%) and several Central European countries like Slovenia (9.4%) and the Czech Republic (10.4%) have the smallest gaps. Meanwhile, EU membership does not delineate the countries since there is a wide range among member states (from 9.1% to 28.3%). Western Balkan candidate countries like Kosovo (21.3%) and North Macedonia (13.4%) are also within that spectrum. This chart is helpful in understanding that EU membership does not necessarily predict how well teacher needs for AI training are met. 
+  
