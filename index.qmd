@@ -50,3 +50,35 @@ ggplot(gap, aes (x = reorder(country, training_gap_pct),
 
 Some Southern European countries have the biggest gaps between need and presence of training: Malta (28.3%), Cyprus (26.9%), and Spain (24.2%). Estonia (9.1%) and several Central European countries like Slovenia (9.4%) and the Czech Republic (10.4%) have the smallest gaps. Meanwhile, EU membership does not delineate the countries since there is a wide range among member states (from 9.1% to 28.3%). Western Balkan candidate countries like Kosovo (21.3%) and North Macedonia (13.4%) are also within that spectrum. This chart is helpful in understanding that EU membership does not necessarily predict how well teacher needs for AI training are met. 
   
+```{r}
+#| label: graph2
+#| message: false
+#| warning: false
+
+exp_gap <- read_csv("data/experience_gap.csv")
+
+by_group <- exp_gap |>
+  group_by(group) |>
+  summarise(le5 = mean(le5_pct), y6_10 = mean(y6_10_pct), gt10 = mean(gt10_pct)) |>
+  pivot_longer(cols = c(le5, y6_10,gt10),
+               names_to = "experience", values_to ="avg_pct") |>
+  mutate(experience = factor(experience, levels = c("le5", "y6_10", "gt10"),
+                             labels = c("5 years or less", "6 to 10 years", "More than 10 years")))
+
+ggplot(by_group, aes(x = experience, y = avg_pct, color = group, group = group)) +
+  geom_line(linewidth = 1.1) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("EU member" = darkblue,
+                                "Candidate" = lightblue,
+                                "Other Europe" = grey)) +
+  labs(title = "AI Training Gap Increase With More Experienced Teachers",
+       subtitle = "Average Share of Teachers with Unmet AI Training Need by years of Teaching",
+       x = "Years of Teaching Experience", y = "% of Teachers",
+       color = "Country group",
+       caption = "Source: OECD, Teaching and Learning International Survey 2024") +
+  
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+Across the three categories of states in Europe, the share of middle school teachers that report unmet AI training need rises with teaching experience. Specifically, within the EU member state category, those teachers with 5 years or fewer of teaching experience roughly report around 14.4% and those that had more than 10 years report up to 18.9%. Within the EU candidate state category, the difference is similar. On the one end, we have a range from 14.7% to 18.7%. This chart is helpful in understanding that those teachers with most significant experience teaching are, also most likely to report recieving inadequate training; state-wide, and EU-wide, programs can benefit from this information for targeting purposes.
+```
