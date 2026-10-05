@@ -138,13 +138,39 @@ ggplot(gap,aes(x= group, y = training_gap_pct, fill = group)) +
   scale_fill_manual(values = c("EU member" = darkblue,
                                 "Candidate" = lightblue,
                                 "Other Europe" = grey)) +
-  labs(title = "AI Training Gap Significant Variation across EU",
+  labs(title = "AI Training Gap's Wide Variation across EU",
        subtitle = "Spread of Unmet AI Training Need in Countries per Group 2024", 
         x = NULL, y = "% of Teachers",
-        caption = "Source: OECD, Teaching and Learning International survey 2024") +
+        caption = "Source: OECD, Teaching and Learning International Survey 2024") +
   theme_minimal() 
        
 ```
 From the European states across the three categories, the share of teacher that report
 unmet AI training needs has a highest variation within EU member states than the other two categories.
 Specifically, 22 EU member states have a range from 9.1% (Estonia) to 28.3% (Malta). Meanwhile, the 5 candidate states range from 13.4% (North Macedonia) to 21.3% (Kosovo). The median for EU members is 17.4% and for candidate states it is similar, at about 17.0%; Iceland, that forms the Other category, is at 19.9%. This chart is helpful in understanding that EU membership is not indicative of differences in AI-training, which means that programming aimed at teachers should not be carried out uniformly within the groups. 
+  
+
+## Visualization Requirements Checklist
+
+| Requirement Category | Specific Element / Code Used | Graph # (1, 2, 3, or 4) |
+| --- | --- | --- |
+| **Geom 1** | geom_col()| 1 |
+| **Geom 2** | geom_text() | 1 and 3 |
+| **Geom 3** | geom_line() | 2 | 
+| **Geom 4** | geom_point() | 2 and 3 |
+| **Geom 5** | geom_segment() | 3 |
+| **Aesthetic 1** *(inside `aes()`)* | x | 1 and 2 and 3 and 4 |
+| **Aesthetic 2** *(inside `aes()`)* | y | 1 and 2 and 3 and 4 |
+| **Aesthetic 3** *(inside `aes()`)* | fill |  1 and 4 |
+| **Aesthetic 4** *(inside `aes()`)* | color | 2 | 
+| **Aesthetic 5** *(inside `aes()`)* | label | 1 and 3 | 
+| **Aesthetic 6** *(inside `aes()`)* | group| 2 |
+| **Non-Aesthetic 1** *(outside `aes()`)* |width| 1 and 4 |
+| **Non-Aesthetic 2** *(outside `aes()`)* |hjust| 1 and 3 |
+| **Non-Aesthetic 3** *(outside `aes()`)* | size | 2 and 3 and 4 |
+| **Non-Aesthetic 4** *(outside `aes()`)* | linewidth | 1 and 2 and 3 |
+| **Non-Aesthetic 5** *(outside `aes()`)* | alpha | 3 and 4 |
+| **Non-Aesthetic 6** *(outside `aes()`)* | outlier.shape | 4 |
+| **Custom Scale 1** |scale_fill_manual()|1 and 4 |
+| **Custom Scale 2** |scale_color_manual() | 2 |
+
