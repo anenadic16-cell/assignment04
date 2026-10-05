@@ -118,3 +118,33 @@ ggplot(avg_barriers, aes(x = avg_pct, y = barrier)) +
   theme_minimal()
 ```
 Across 28 European countries, the most likely barrier that middle school teacher report in their use of AI in teaching is a lack of proper knowledge and skills at about 70%. The second most likely barrier is tied to their beliefs; 54% of these teachers indicate that they are opposed to the use of AI in teaching practices. The third and fourth most reported barriers are the general feeling of overwhelm by the new technologies and inadequate infrastructure in school facilities, both at around 36%. Interestingly, only 12% of teachers report that their school prohibits AI. This chart is helpful in understanding that even if AI training were improved and expanded, a significant portion of European middle school teachers would not use the technology because of their beliefs. 
+
+```{r}
+#| label: graph4
+#| message: false
+#| warning: false
+
+gap <- read_csv("data/training_gap.csv")
+
+#My EU Color Palette
+darkblue <- "#3D426B" #for EU member states
+lightblue <- "#779ECB" #for Candidate states
+grey <- "#DBD9DA"# for non-EU and non-Candidate states
+black <- "#000000" #. for general text labels
+
+ggplot(gap,aes(x= group, y = training_gap_pct, fill = group)) +
+  geom_boxplot(width = 0.5, alpha = 0.5, outlier.shape = NA) +
+  geom_jitter(width = 0.08, size = 2, color = black, alpha = 0.7) +
+  scale_fill_manual(values = c("EU member" = darkblue,
+                                "Candidate" = lightblue,
+                                "Other Europe" = grey)) +
+  labs(title = "AI Training Gap Significant Variation across EU",
+       subtitle = "Spread of Unmet AI Training Need in Countries per Group 2024", 
+        x = NULL, y = "% of Teachers",
+        caption = "Source: OECD, Teaching and Learning International survey 2024") +
+  theme_minimal() 
+       
+```
+From the European states across the three categories, the share of teacher that report
+unmet AI training needs has a highest variation within EU member states than the other two categories.
+Specifically, 22 EU member states have a range from 9.1% (Estonia) to 28.3% (Malta). Meanwhile, the 5 candidate states range from 13.4% (North Macedonia) to 21.3% (Kosovo). The median for EU members is 17.4% and for candidate states it is similar, at about 17.0%; Iceland, that forms the Other category, is at 19.9%. This chart is helpful in understanding that EU membership is not indicative of differences in AI-training, which means that programming aimed at teachers should not be carried out uniformly within the groups. 
