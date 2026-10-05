@@ -81,4 +81,40 @@ ggplot(by_group, aes(x = experience, y = avg_pct, color = group, group = group))
   theme(legend.position = "bottom")
 ```
 Across the three categories of states in Europe, the share of middle school teachers that report unmet AI training need rises with teaching experience. Specifically, within the EU member state category, those teachers with 5 years or fewer of teaching experience roughly report around 14.4% and those that had more than 10 years report up to 18.9%. Within the EU candidate state category, the difference is similar. On the one end, we have a range from 14.7% to 18.7%. This chart is helpful in understanding that those teachers with most significant experience teaching are, also most likely to report recieving inadequate training; state-wide, and EU-wide, programs can benefit from this information for targeting purposes.
+
+```{r}
+#| label: graph3
+#| message: false
+#| warning: false
+
+barriers <- read_csv("data/barriers.csv")
+
+#My EU Color Palette
+darkblue <- "#3D426B" #for EU member states
+lightblue <- "#779ECB" #for Candidate states
+grey <- "#DBD9DA"# for non-EU and non-Candidate states
+black <- "#000000" #. for general text labels
+
+avg_barriers <- barriers |>
+  pivot_longer (cols = -c(country, group), names_to = "barrier", values_to = "pct" ) |>
+  group_by(barrier) |>
+  summarise(avg_pct = mean(pct)) |>
+  arrange(avg_pct)
+  
+avg_barriers$barrier <- factor(avg_barriers$barrier, levels = avg_barriers$barrier)
+
+ggplot(avg_barriers, aes(x = avg_pct, y = barrier)) +
+  geom_segment(aes(x=0, xend = avg_pct, y = barrier, yend = barrier),
+    color = lightblue, linewidth = 2.2, alpha = 0.9) +
+  geom_point(size = 4.5, color = darkblue) +
+  geom_text(aes(label=paste0(round(avg_pct), "%")),
+            hjust = -0.5, size = 3, color = black) +
+  scale_x_continuous(limits = c(0,85)) +
+  labs(title = "Barriers to Use of AI amongst Teachers",
+       subtitle = "Average Share of Middle-School Teachers Reporting Different Barriers",
+       x = "% of Teachers", y = NULL,
+       caption = "Source: OECD, Teaching and Learning International Survey, 2024") +
+  
+  theme_minimal()
 ```
+Across 28 European countries, the most likely barrier that middle school teacher report in their use of AI in teaching is a lack of proper knowledge and skills at about 70%. The second most likely barrier is tied to their beliefs; 54% of these teachers indicate that they are opposed to the use of AI in teaching practices. The third and fourth most reported barriers are the general feeling of overwhelm by the new technologies and inadequate infrastructure in school facilities, both at around 36%. Interestingly, only 12% of teachers report that their school prohibits AI. This chart is helpful in understanding that even if AI training were improved and expanded, a significant portion of European middle school teachers would not use the technology because of their beliefs. 
