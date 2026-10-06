@@ -16,6 +16,8 @@ library(tidyverse)
 
 My data is from the OECD [Teaching and Learning International Survey (TALIS) 2024](https://www.oecd.org/en/publications/results-from-talis-2024_90df6235-en/full-report/list-of-tables-available-online_d5b208db.html). Specifically, training gap data is from table 4.30; barriers to AI use is from table 1.63 for middle school teachers across a selection of 28 European countries, further stratified by EU member, EU candidate, and non-member or candidate. 
 
+## Graph 1: Teacher AI Training Gap by Country
+
 ```{r}
 #| label: graph1
 #| message: false
@@ -50,6 +52,9 @@ ggplot(gap, aes (x = reorder(country, training_gap_pct),
 
 Some Southern European countries have the biggest gaps between need and presence of training: Malta (28.3%), Cyprus (26.9%), and Spain (24.2%). Estonia (9.1%) and several Central European countries like Slovenia (9.4%) and the Czech Republic (10.4%) have the smallest gaps. Meanwhile, EU membership does not delineate the countries since there is a wide range among member states (from 9.1% to 28.3%). Western Balkan candidate countries like Kosovo (21.3%) and North Macedonia (13.4%) are also within that spectrum. This chart is helpful in understanding that EU membership does not necessarily predict how well teacher needs for AI training are met. 
   
+  
+## Graph 2: Teacher AI Training Gap Across Years of Teaching
+  
 ```{r}
 #| label: graph2
 #| message: false
@@ -81,6 +86,8 @@ ggplot(by_group, aes(x = experience, y = avg_pct, color = group, group = group))
   theme(legend.position = "bottom")
 ```
 Across the three categories of states in Europe, the share of middle school teachers that report unmet AI training need rises with teaching experience. Specifically, within the EU member state category, those teachers with 5 years or fewer of teaching experience roughly report around 14.4% and those that had more than 10 years report up to 18.9%. Within the EU candidate state category, the difference is similar. On the one end, we have a range from 14.7% to 18.7%. This chart is helpful in understanding that those teachers with most significant experience teaching are, also most likely to report recieving inadequate training; state-wide, and EU-wide, programs can benefit from this information for targeting purposes.
+
+## Graph 3: Teachers' Barriers to AI Use 
 
 ```{r}
 #| label: graph3
@@ -119,6 +126,8 @@ ggplot(avg_barriers, aes(x = avg_pct, y = barrier)) +
 ```
 Across 28 European countries, the most likely barrier that middle school teacher report in their use of AI in teaching is a lack of proper knowledge and skills at about 70%. The second most likely barrier is tied to their beliefs; 54% of these teachers indicate that they are opposed to the use of AI in teaching practices. The third and fourth most reported barriers are the general feeling of overwhelm by the new technologies and inadequate infrastructure in school facilities, both at around 36%. Interestingly, only 12% of teachers report that their school prohibits AI. This chart is helpful in understanding that even if AI training were improved and expanded, a significant portion of European middle school teachers would not use the technology because of their beliefs. 
 
+## Graph 4: Spread of AI Training Gap Across Countries
+
 ```{r}
 #| label: graph4
 #| message: false
@@ -148,6 +157,9 @@ ggplot(gap,aes(x= group, y = training_gap_pct, fill = group)) +
 From the European states across the three categories, the share of teacher that report
 unmet AI training needs has a highest variation within EU member states than the other two categories.
 Specifically, 22 EU member states have a range from 9.1% (Estonia) to 28.3% (Malta). Meanwhile, the 5 candidate states range from 13.4% (North Macedonia) to 21.3% (Kosovo). The median for EU members is 17.4% and for candidate states it is similar, at about 17.0%; Iceland, that forms the Other category, is at 19.9%. This chart is helpful in understanding that EU membership is not indicative of differences in AI-training, which means that programming aimed at teachers should not be carried out uniformly within the groups. 
+  
+  
+## Graph 5: Barriers to AI for Teachers Across Europe
   
 ```{r}
 #| label: graph5
