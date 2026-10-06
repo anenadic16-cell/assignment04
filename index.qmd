@@ -113,7 +113,7 @@ ggplot(avg_barriers, aes(x = avg_pct, y = barrier)) +
   labs(title = "Barriers to Use of AI amongst Teachers",
        subtitle = "Average Share of Middle-School Teachers Reporting Different Barriers",
        x = "% of Teachers", y = NULL,
-       caption = "Source: OECD, Teaching and Learning International Survey, 2024") +
+       caption = "Source: OECD, Teaching and Learning International Survey 2024") +
   
   theme_minimal()
 ```
@@ -149,7 +149,43 @@ From the European states across the three categories, the share of teacher that 
 unmet AI training needs has a highest variation within EU member states than the other two categories.
 Specifically, 22 EU member states have a range from 9.1% (Estonia) to 28.3% (Malta). Meanwhile, the 5 candidate states range from 13.4% (North Macedonia) to 21.3% (Kosovo). The median for EU members is 17.4% and for candidate states it is similar, at about 17.0%; Iceland, that forms the Other category, is at 19.9%. This chart is helpful in understanding that EU membership is not indicative of differences in AI-training, which means that programming aimed at teachers should not be carried out uniformly within the groups. 
   
+```{r}
+#| label: graph5
+#| message: false
+#| warning: false
+#| fig-height: 10
+#| fig-width: 9
 
+barriers <- read_csv("data/barriers.csv")
+
+#My EU Color Palette
+darkblue <- "#3D426B" #for EU member states
+lightblue <- "#779ECB" #for Candidate states
+grey <- "#DBD9DA"# for non-EU and non-Candidate states
+black <- "#000000" #. for general text labels
+paleblue <- "#EDF2FA" #for better distinguishment of color for candidate states
+
+heatmap_data <- barriers |>#
+  pivot_longer(
+    cols = -c(country,group),
+    names_to = "barrier",
+    values_to = "pct"
+  )
+ggplot(heatmap_data,aes(x = barrier, y = country, fill = pct)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(
+    low = paleblue,
+    high = darkblue,
+    limits = c(0,100),
+    na.value = grey
+  ) +
+  labs(title = "Barriers to Teachers' AI Use Within Europe",
+       subtitle = "Middle School Teachers Who Report Not Using AI in Teaching", 
+        x = "Barrier", y = "Country", fill = "% reporting\nbarrier",
+        caption = "Source: OECD, Teaching and Learning International Survey 2024") +
+  theme_minimal() 
+```
+       
 ## Visualization Requirements Checklist
 
 | Requirement Category | Specific Element / Code Used | Graph # (1, 2, 3, or 4) |
