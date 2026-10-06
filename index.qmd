@@ -22,6 +22,8 @@ My data is from the OECD [Teaching and Learning International Survey (TALIS) 202
 #| label: graph1
 #| message: false
 #| warning: false
+#| fig-height: 8
+#| fig-width: 9
 
 gap <- read_csv("data/training_gap.csv")
 
@@ -35,7 +37,7 @@ ggplot(gap, aes (x = reorder(country, training_gap_pct),
                  y = training_gap_pct, fill = group)) +
       geom_col(width=0.8, color = "white", linewidth = 0.3) +
       geom_text (aes(label = paste0(training_gap_pct, "%")),
-                 hjust = -0.15, size = 2.6, color = black) +
+                 hjust = -0.15, size = 3, color = black) +
       coord_flip() +
       scale_fill_manual(values = c("EU member" = darkblue,
                                    "Candidate" = lightblue,
@@ -76,7 +78,7 @@ ggplot(by_group, aes(x = experience, y = avg_pct, color = group, group = group))
   scale_color_manual(values = c("EU member" = darkblue,
                                 "Candidate" = lightblue,
                                 "Other Europe" = grey)) +
-  labs(title = "AI Training Gap Increase With More Experienced Teachers",
+  labs(title = "AI Training Gap Increase With Experiene",
        subtitle = "Average Share of Teachers with Unmet AI Training Need by years of Teaching",
        x = "Years of Teaching Experience", y = "% of Teachers",
        color = "Country group",
@@ -147,8 +149,9 @@ ggplot(gap,aes(x= group, y = training_gap_pct, fill = group)) +
   scale_fill_manual(values = c("EU member" = darkblue,
                                 "Candidate" = lightblue,
                                 "Other Europe" = grey)) +
-  labs(title = "AI Training Gap's Wide Variation across EU",
-       subtitle = "Spread of Unmet AI Training Need in Countries per Group 2024", 
+  guides(fill = "none") +
+  labs(title = "AI Training Gaps Across Countries",
+       subtitle = "22 EU Memebers. 5 Candidates, Other: Iceland", 
         x = NULL, y = "% of Teachers",
         caption = "Source: OECD, Teaching and Learning International Survey 2024") +
   theme_minimal() 
@@ -216,11 +219,11 @@ ggplot(heatmap_data,aes(x = barrier, y = country, fill = pct)) +
 | **Aesthetic 6** *(inside `aes()`)* | group| 2 |
 | **Non-Aesthetic 1** *(outside `aes()`)* |width| 1 and 4 |
 | **Non-Aesthetic 2** *(outside `aes()`)* |hjust| 1 and 3 |
-| **Non-Aesthetic 3** *(outside `aes()`)* | size | 2 and 3 and 4 |
+| **Non-Aesthetic 3** *(outside `aes()`)* | size | 1 and 2 and 3 and 4 |
 | **Non-Aesthetic 4** *(outside `aes()`)* | linewidth | 1 and 2 and 3 |
 | **Non-Aesthetic 5** *(outside `aes()`)* | alpha | 3 and 4 |
 | **Non-Aesthetic 6** *(outside `aes()`)* | outlier.shape | 4 |
-| **Non-Aesthetic 7** *(outside `aes()`)* | color | 1 and 2 and 3 and 4 and 5 |
+| **Non-Aesthetic 7** *(outside `aes()`)* | color | 1 and 3 and 4 and 5 |
 | **Custom Scale 1** |scale_fill_manual()|1 and 4 |
 | **Custom Scale 2** |scale_color_manual() | 2 |
 | **Custom Scale 3** |scale_fill_gradient() | 5 |
