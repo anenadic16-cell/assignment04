@@ -100,7 +100,7 @@ barriers <- read_csv("data/barriers.csv")
 darkblue <- "#3D426B" #for EU member states
 lightblue <- "#779ECB" #for Candidate states
 grey <- "#DBD9DA"# for non-EU and non-Candidate states
-black <- "#000000" #. for general text labels
+black <- "#000000" # for general text labels
 
 avg_barriers <- barriers |>
   pivot_longer (cols = -c(country, group), names_to = "barrier", values_to = "pct" ) |>
@@ -174,8 +174,8 @@ barriers <- read_csv("data/barriers.csv")
 darkblue <- "#3D426B" #for EU member states
 lightblue <- "#779ECB" #for Candidate states
 grey <- "#DBD9DA"# for non-EU and non-Candidate states
-black <- "#000000" #. for general text labels
-paleblue <- "#EDF2FA" #for better distinguishment of color for candidate states
+black <- "#000000" # for general text labels
+paleblue <- "#EDF2FA" # for low % for heatmap
 
 heatmap_data <- barriers |>#
   pivot_longer(
@@ -200,16 +200,17 @@ ggplot(heatmap_data,aes(x = barrier, y = country, fill = pct)) +
        
 ## Visualization Requirements Checklist
 
-| Requirement Category | Specific Element / Code Used | Graph # (1, 2, 3, or 4) |
+| Requirement Category | Specific Element / Code Used | Graph # (1, 2, 3, 4, or 5) |
 | --- | --- | --- |
 | **Geom 1** | geom_col()| 1 |
 | **Geom 2** | geom_text() | 1 and 3 |
 | **Geom 3** | geom_line() | 2 | 
 | **Geom 4** | geom_point() | 2 and 3 |
 | **Geom 5** | geom_segment() | 3 |
-| **Aesthetic 1** *(inside `aes()`)* | x | 1 and 2 and 3 and 4 |
-| **Aesthetic 2** *(inside `aes()`)* | y | 1 and 2 and 3 and 4 |
-| **Aesthetic 3** *(inside `aes()`)* | fill |  1 and 4 |
+| **Geom 6** | geom_tile() | 5 |
+| **Aesthetic 1** *(inside `aes()`)* | x | 1 and 2 and 3 and 4 and 5|
+| **Aesthetic 2** *(inside `aes()`)* | y | 1 and 2 and 3 and 4 and 5 |
+| **Aesthetic 3** *(inside `aes()`)* | fill |  1 and 4 and 5 |
 | **Aesthetic 4** *(inside `aes()`)* | color | 2 | 
 | **Aesthetic 5** *(inside `aes()`)* | label | 1 and 3 | 
 | **Aesthetic 6** *(inside `aes()`)* | group| 2 |
@@ -219,6 +220,8 @@ ggplot(heatmap_data,aes(x = barrier, y = country, fill = pct)) +
 | **Non-Aesthetic 4** *(outside `aes()`)* | linewidth | 1 and 2 and 3 |
 | **Non-Aesthetic 5** *(outside `aes()`)* | alpha | 3 and 4 |
 | **Non-Aesthetic 6** *(outside `aes()`)* | outlier.shape | 4 |
+| **Non-Aesthetic 7** *(outside `aes()`)* | color | 1 and 2 and 3 and 4 and 5 |
 | **Custom Scale 1** |scale_fill_manual()|1 and 4 |
 | **Custom Scale 2** |scale_color_manual() | 2 |
+| **Custom Scale 3** |scale_fill_gradient() | 5 |
 
