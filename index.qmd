@@ -166,7 +166,7 @@ Specifically, 22 EU member states have a range from 9.1% (Estonia) to 28.3% (Mal
 #| message: false
 #| warning: false
 #| fig-height: 10
-#| fig-width: 9
+#| fig-width: 12
 
 barriers <- read_csv("data/barriers.csv")
 
@@ -177,7 +177,7 @@ grey <- "#DBD9DA"# for non-EU and non-Candidate states
 black <- "#000000" # for general text labels
 paleblue <- "#EDF2FA" # for low % for heatmap
 
-heatmap_data <- barriers |>#
+heatmap_data <- barriers |>
   pivot_longer(
     cols = -c(country,group),
     names_to = "barrier",
